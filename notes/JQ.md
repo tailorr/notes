@@ -4,9 +4,22 @@ jQuery 是一个 JavaScript 库，它提供了一些方便使用的 API，能让
 
 ## **题目2：** jQuery 对象和 DOM 原生对象有什么区别？如何转化？
 
-本质上，jQuery 对象和 DOM 原生对象是两个不同的东西，它们各自有一套自己的方法来操作 DOM 节点，二者的方法和属性不能混淆。jQuery 对象实际上是对 DOM 原生对象进行了一次封装，简化了很多方法的使用和操作。
-jQuery 对象转化成 DOM 原生对象：在对象后加下标 [] 即可，本质上是获取 jQuery 对象的一个属性，刚好这个属性值就是其对应的 DOM 原生对象，如：var btn = $('#btn'); btn[0].innerHTML = 'hello'
-DOM 原生对象转化成 jQuery 对象，只需要放入函数 $ 的参数里面就行了，如：var btn = document.getElementById('btn'); \$(btn).html('hello')
+jQuery对象就是通过jQuery包装DOM对象后产生的对象(集合对象)。jQuery对象是jQuery独有的，可以使用jQuery里的方法。
+因此jQuery对象和DOM对象是不一样的，不能调用对方定义的方法。
+注意！dom对象须使用dom方法，jq对象需使用jq方法
+
+> $(‘#test’).innerHTML会报错，document.getElementById(‘#test’)[0].html()也会报错。
+
+**转化：**
+
+普通的DOM对象可以用`$()`包装起来转换为jQuery对象: $(document.getElementById(‘#test’)).html();	//正常
+
+jQuery对象本身是一个集合，要转换为DOM对象，可通过数组索引取出:[index]和.get(index)
+
+第一种方式：$(‘#test’)[0]
+第二种方式：$(‘#test’).get(0)
+注： eq(0)返回的还是jQuery对象,eq(0)[0]是DOM对象。
+
 ## **题目3：**jQuery中如何绑定事件？`bind`、`unbind`、`delegate`、`live`、`on`、`off`都有什么作用？推荐使用哪种？使用`on`绑定事件使用事件代理的写法？
 
 绑定事件：$('.btn').on('click',function(){绑定的事件})
@@ -36,6 +49,10 @@ on() 方法在被选元素及子元素上添加一个或多个事件处理程序
 
 **使用on事件代理的写法：**
 `$('ul').on('click','li',function(){代理的绑定事件})`
+
+
+
+***从jQuery 1.7开始，事件绑定只推荐on()、off()这两个方法**
 
 ## **题目4：**jQuery 如何展示/隐藏元素？
 

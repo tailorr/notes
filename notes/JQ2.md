@@ -2,31 +2,39 @@
 
 **题目1：** jQuery 中， $(document).ready()是什么意思？
 
-`$(document).ready()`表示页面的dom元素已经加载完毕，这是为了防止在页面加载元素加载完之前对dom元素进行操作。原生js中我们可以使用window.onload来达到这个效果，不过两者还是有区别，onload是所有元素、图片、外部资源都加载完，而$(document).ready()只需要元素加载完成。所以onload比$().ready()要慢
+`$(document).ready()`表示当DOM准备就绪时，指定一个函数来执行。与JavaScript提供了window.onload事件的区别：
+
+> The ready event occurs after the HTML document has been loaded, while the onload event occurs later, when all content (e.g. images) also has been loaded.
+>
+> The onload event is a standard event in the DOM, while the ready event is specific to jQuery. The purpose of the ready event is that it should occur as early as possible after the document has loaded, so that code that adds functionality to the elements in the page doesn't have to wait for all content to load.
+> 简单来说 `window.onload`是当页面呈现时用来执行这个事件，直到所有的东西，如图像已被完全接收前，此事件不会被触发
+> `$(document).ready()`只要DOM结构已完全加载时，脚本就可以运行。传递处理函数给.ready()方法，能保证DOM准备好后就执行这个函数
+>
+> 所以onload比$().ready()要慢
 
 **题目2：** `$node.html()`和`$node.text()`的区别?
 
+`$node.html()`，返回所选择元素内的html内容，包含html标签和文本内容;`$node.text()`，返回所选择元素内的文本内容，不包含html标签，只包含文本内容
+
 - `$node.html()`如果结果是多个进行赋值操作的时候会给每个结果都赋值
-- `$node.html()`如果结果多个，获取值的时候，返回结果集中的第一个对象的相应值
+- `$node.html()`如果结果是多个，获取值的时候，返回结果集中的第一个对象的相应值
 - `$node.text()`获取匹配元素集合中每个元素的合并文本，包含他们的后代
-- 区别`html()`包含匹配元素的HMTL内容，而`text()`只合并文本内容
 
 **题目3：** $.extend 的作用和用法? 
 
-extend的作用主要就是合并对象，对对象进行扩展操,基本语法如下 :
+extend的作用主要就是合并对象，对对象进行扩展操，基本语法如下 :
 ```
 jQuery.extend([deep,] target [, object1 ][, objectN ] )
 ```
 
 
-```
+```javascript
 jQuery.extend(target,object1,  object2...objectN)	
-
 //合并 object1, object2... objectN 到 target 对象，如果只有一个参数，则该 target 对象会被合并到 jQuery 对象中。
 ```
 ------
 
-```
+```javascript
 var obj1 = {
     name: 'Tom',
     age: 21
@@ -47,7 +55,7 @@ obj2 	//{name: "Jerry", sex: "boy"}
 
 ------
 
-```
+```javascript
 var obj1 = {
     name: 'Tom',
     age: 21
@@ -69,13 +77,13 @@ obj2 // { name: "Jerry", sex: "boy" }
 
 ### 深拷贝
 
-```
+```javascript
 [deep], target, object1 [, objectN])
 ```
 
 该方法多了一个类型为 boolean 的 [deep] 传参，当其为 true 时，将 object1 , objectN 深度复制 后合并到 target 中。
 
-```
+```javascript
 var obj = {
    name: 'lilei',
    age: 25,
@@ -101,13 +109,16 @@ obj2经过obj深拷贝后的结果，所以obj2内的对象不再因obj的改变
 
 **题目5：** jQuery 中 data 函数的作用
 
+```javascript
 jQuery.data( element, key, value )
-jQuery.data() 方法允许我们在DOM元素上附加任意类型的数据,避免了循环引用的内存泄漏风险。如果 DOM 元素是通过 jQuery 方法删除的或者当用户离开页面时，jQuery 同时也会移除添加在上面的数据。我们可以在一个元素上设置不同的值，并获取这些值：
-element是要存储数据的DOM对象；
-key是存储的数据名；
-value是新数据值；
-
+//element是要存储数据的DOM对象；
+//key是存储的数据名
+//value是新数据值
 ```
+
+jQuery.data() 方法允许我们在DOM元素上附加任意类型的数据,避免了循环引用的内存泄漏风险。如果 DOM 元素是通过 jQuery 方法删除的或者当用户离开页面时，jQuery 同时也会移除添加在上面的数据。我们可以在一个元素上设置不同的值，并获取这些值：
+
+```javascript
 $( "body" ).data( "foo", 52 );
 $( "body" ).data( "bar", { myType: "test", count: 40 } );
 $( "body" ).data( { baz: [ 1, 2, 3 ] } );
@@ -122,7 +133,7 @@ $( "body" ).data(); // { foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 
 - 写出以下功能对应的 jQuery 方法：
   - 给元素 `$node` 添加 class `active`，给元素 $noed 删除 class `active`       
 
-    ```
+    ```javascript
     $node.addClass('active')
     $noed.removeClass('active')
     ```
@@ -193,7 +204,7 @@ $( "body" ).data(); // { foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 
 
   - 获取、设置$node 的宽度、高度(分别不包括内边距、包括内边距、包括边框、包括外边距)
 
-    ```
+    ```javascript
     $node.width()	//content width
     $node.height()	//content height
     $node.innerWidth()	//padding width
@@ -226,7 +237,7 @@ $( "body" ).data(); // { foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 
 
   - 遍历节点，把每个节点里面的文本内容重复一遍
 
-    ```
+    ```javascript
     <ul id="i">
     	<li>123</li>
     	<li>456</li>
@@ -270,7 +281,7 @@ $( "body" ).data(); // { foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 
 
   - 获取当前元素在兄弟中的排行
 
-    ```
+    ```html
     <ul id="ct6">
     	<li></li>
     	<li></li>
