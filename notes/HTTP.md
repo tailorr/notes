@@ -14,15 +14,15 @@
 
 7. 应用层：是最靠近用户的OSI层。这一层为用户的应用程序(例如电子邮件、文件传输和终端仿真)提供网络服务。
 
-   ​
+   ![](http://ww1.sinaimg.cn/large/d40e9753gy1fhg11jm5jpj20v41831jz.jpg)
 
-## HTTP 的工作原理是什么？
+## HTTP 的工作原理
 
-## HTTP简介
-HTTP协议（HyperText Transfer Protocol，超文本传输协议）是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（[TCP](https://zh.wikipedia.org/wiki/TCP)）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认[端口](https://zh.wikipedia.org/wiki/%E7%AB%AF%E5%8F%A3)为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如[代理服务器](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E4%BC%BA%E6%9C%8D%E5%99%A8)、[网关](https://zh.wikipedia.org/wiki/%E7%BD%91%E5%85%B3)或者[隧道](https://zh.wikipedia.org/wiki/%E9%9A%A7%E9%81%93)（tunnel）。
+### HTTP简介
+HTTP协议（HyperText Transfer Protocol，超文本传输协议）是一个客户端终端（用户）和服务器端（网站）请求和响应的标准（[TCP](https://zh.wikipedia.org/wiki/TCP)）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认[端口](https://zh.wikipedia.org/wiki/%E7%AB%AF%E5%8F%A3)为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如[代理服务器](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E4%BC%BA%E6%9C%8D%E5%99%A8)、[网关](https://zh.wikipedia.org/wiki/%E7%BD%91%E5%85%B3)或者[隧道](https://zh.wikipedia.org/wiki/%E9%9A%A7%E9%81%93)（tunnel）。
 
 在了解HTTP如何工作之前，我们需要先了解计算机之间的通信。
-## 计算机之间的通信
+### 计算机之间的通信
 互联网的关键技术就是TCP/IP协议。两台计算机之间的通信是通过TCP/IP协议在因特网上进行的。实际上这是两个协议:
 
 - **TCP :** Transmission Control Protocol 传输控制协议
@@ -44,7 +44,7 @@ TCP 负责应用软件（比如你的浏览器）和网络软件之间的通信�
 
 基于HTTP协议的客户(C)/服务器(S)模式的信息交换过程，分为四个过程：建立连接、发送请求信息、发送响应信息、关闭连接。
 
-## HTTP工作过程
+### HTTP工作过程
 一次HTTP操作称为一个事物，整个工作过程如下:
 以访问`https://www.google.co.jp/?gfe_rd=cr&ei=7pVcWfe0Guzd8Afx_JGQCg`为例
 **1. 域名解析:** 从URL中解析出协议类型、主机名、端口、向服务端发送的参数，通过域名系统DNS解析域名得到IP地址。
@@ -164,12 +164,12 @@ HTTP报文是简单的格式化数据块，每个报文都包含一条来自客�
 包含属性的首部块 —— header
 可选的包含数据的主体部分 —— body
 
-```
-HTTP/1.0 200 OK
+```javascript
+HTTP/1.0 200 OK				//start line
 content-type: text/plain
-content-length: 19
+content-length: 19 			//header
 
-Hi, I'm a message
+Hi, I'm a message 			//body
 ```
 起始行和首部就是由行分隔的ASCII文本，主题是一个可选的数据块，可能是文本、二进制或者空
 
@@ -178,6 +178,12 @@ Hi, I'm a message
 ## 首部的格式和作用是什么？给个范例截图说明
 
 ## 主体的作用是什么？给个范例
+
+主体就是客户端和服务端之间传输的主要数据内容
+
+主体可以是很多类型的数据，包括图片、视频、HTML文档、软件应用程序等
+
+![](http://ww1.sinaimg.cn/large/d40e9753gy1fhg1ofs3ipj211s0hs45c.jpg)
 
 ## 简述浏览器缓存是如何控制的
 
